@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import Ultility
-
+from tkcalendar import DateEntry
 
 root = tk.Tk()
 root.title("CHƯƠNG TRÌNH KỸ THUẬT AN TOÀN")
@@ -15,18 +15,18 @@ root.geometry(f"{screen_width}x{screen_height}")
 
 # Thiết lập tọa độ gốc
 a = 0
-b = 20
+b = -20
 
 # Path các file config
 NhanVien_Path = "config/NhanVien.txt"
 
 # Đọc danh sách từ file NhanVien.txt để lấy dữ liệu về Tên và chức vụ đơn vị công tác
-DonVi_List = Ultility.ReadfileTxt(NhanVien_Path)
+NhanVien_List = Ultility.ReadfileTxt(NhanVien_Path)
 Name_List = []
 Chucvu_List = []
 DienLuc_List = []
 MaNV_List = []
-for ele in DonVi_List:
+for ele in NhanVien_List:
     Info = ele.split(", ")
     Name_List.append(Info[0])
     Chucvu_List.append(Info[1])
@@ -212,12 +212,163 @@ txt_NoiDungCV = tk.Text(root, width=84, height=5, font="Arial")
 txt_NoiDungCV.place(x=200 + a, y=350 + b)
 
 #=================THỜI GIAN TIẾN HÀNH CÔNG VIỆC=============================================
-# Tạo một Label "5. Nội dung công việc"
-label = tk.Label(root, text="5. Nội dung công việc", font=("Arial", 11))
-label.place(x=10 + a, y=350 + b)
+# Thời gian bắt đầu
+label = tk.Label(root, text="6. Thời gian bắt đầu", font=("Arial", 11))
+label.place(x=10 + a, y=460 + b)
+#Giờ bắt đầu
+txt_GioBatDau = tk.Text(root, width=10, height=0, font="Arial")
+txt_GioBatDau.place(x=200 + a, y=460 + b)
+label = tk.Label(root, text="giờ", font=("Arial", 11))
+label.place(x=300 + a, y=460 + b)
+#Phút bắt đầu
+txt_PhutBatDau = tk.Text(root, width=10, height=0, font="Arial")
+txt_PhutBatDau.place(x=340 + a, y=460 + b)
+label = tk.Label(root, text="phút", font=("Arial", 11))
+label.place(x=440 + a, y=460 + b)
+#Ngày bắt đầu
+date_NgayBatDau = DateEntry(root, width=16, background='dark', foreground='white', borderwidth=2, date_pattern='dd/MM/yyyy')
+date_NgayBatDau.place(x=490 + a, y=460 + b)
+label = tk.Label(root, text="Ngày", font=("Arial", 11))
+label.place(x=620 + a, y=460 + b)
 
-# Tạo một Text widget "5. Nội dung công việc"
-txt_NoiDungCV = tk.Text(root, width=84, height=5, font="Arial")
-txt_NoiDungCV.place(x=200 + a, y=350 + b)
+# Thời gian kết thúc
+label = tk.Label(root, text="7. Thời gian kết thúc", font=("Arial", 11))
+label.place(x=10 + a, y=500 + b)
+#Giờ bắt đầu
+txt_GioKetThuc = tk.Text(root, width=10, height=0, font="Arial")
+txt_GioKetThuc.place(x=200 + a, y=500 + b)
+label = tk.Label(root, text="giờ", font=("Arial", 11))
+label.place(x=300 + a, y=500 + b)
+#Phút bắt đầu
+txt_PhutKetThuc = tk.Text(root, width=10, height=0, font="Arial")
+txt_PhutKetThuc.place(x=340 + a, y=500 + b)
+label = tk.Label(root, text="phút", font=("Arial", 11))
+label.place(x=440 + a, y=500 + b)
+#Ngày bắt đầu
+date_NgayKetThuc = DateEntry(root, width=16, background='dark', foreground='white', borderwidth=2, date_pattern='dd/MM/yyyy')
+date_NgayKetThuc.place(x=490 + a, y=500 + b)
+label = tk.Label(root, text="Ngày", font=("Arial", 11))
+label.place(x=620 + a, y=500 + b)
+
+#=================NỘI DUNG CÁC BIỆN PHÁP AN TOÀN=============================================
+
+# Path các file config
+DonVi_Path = "config/DonVi.txt"
+
+# Đọc danh sách từ file NhanVien.txt để lấy dữ liệu về Tên và chức vụ đơn vị công tác
+DonVi_List = Ultility.ReadfileTxt(DonVi_Path)
+TenDonVi_List = []
+MaDonVi_List = []
+for donvi in DonVi_List:
+    Info = donvi.split(", ")
+    TenDonVi_List.append(Info[0])
+    MaDonVi_List.append(Info[1])
+
+
+# BPAT để tiến hành công việc
+label = tk.Label(root, text="8. Biện pháp an toàn", font=("Arial", 11))
+label.place(x=10 + a, y=540 + b)
+# txt_NhapBPAT = Ultility.AutocompleteEntry(root, width=84, font="Arial")
+txt_NhapBPAT = Ultility.AutocompleteText(root, width=84, height=2, font="Arial")
+txt_NhapBPAT.place(x=200 + a, y=540 + b)
+
+# Đơn vị thực hiện
+label = tk.Label(root, text="8.1 Đơn vị thực hiện", font=("Arial", 11))
+label.place(x=50 + a, y=600 + b)
+
+# Tạo thanh lựa chọn và thiết lập các lựa chọn cho nhân viên đơn vị QLVH
+selected_option_DonVi = tk.StringVar()   # Tạo biến lưu trữ lựa chọn được chọn
+cbo_DonViTH = ttk.Combobox(root, textvariable=selected_option_DonVi, values=TenDonVi_List, font="Arial")
+cbo_DonViTH.place(x=200 + a, y=600 + b)
+cbo_DonViTH.current(0) # Đặt giá trị mặc định lựa chọn đầu tiên
+
+# Path các file config
+BoPhan_Path = "config/BoPhan.txt"
+
+# Đọc danh sách từ file NhanVien.txt để lấy dữ liệu về Tên và chức vụ đơn vị công tác
+BoPhan_List = Ultility.ReadfileTxt(BoPhan_Path)
+TenBoPhan_List = []
+MaBoPhan_List = []
+for bophan in BoPhan_List:
+    Info = bophan.split(", ")
+    TenBoPhan_List.append(Info[0])
+    MaBoPhan_List.append(Info[1])
+
+# Bộ phận thực hiện
+label = tk.Label(root, text="8.2 Bộ phận", font=("Arial", 11))
+label.place(x=420 + a, y=600 + b)
+# Tạo thanh lựa chọn và thiết lập các lựa chọn cho nhân viên đơn vị QLVH
+selected_option_BoPhanTH = tk.StringVar()   # Tạo biến lưu trữ lựa chọn được chọn
+cbo_BoPhanTH = ttk.Combobox(root, textvariable=selected_option_BoPhanTH, values=TenBoPhan_List, font="Arial")
+cbo_BoPhanTH.place(x=520 + a, y=600 + b)
+cbo_BoPhanTH.current(0) # Đặt giá trị mặc định lựa chọn đầu tiên
+
+# Điện lực thực hiện
+DienLucTH_Path = "config/DienLuc.txt"
+
+# Đọc danh sách từ file NhanVien.txt để lấy dữ liệu về Tên và chức vụ đơn vị công tác
+DienLucTH_List = Ultility.ReadfileTxt(DienLucTH_Path)
+TenDienLucTH_List = []
+MaDienLucTH_List = []
+for dienluc in DienLucTH_List:
+    Info = dienluc.split(", ")
+    TenDienLucTH_List.append(Info[0])
+    MaDienLucTH_List.append(Info[1])
+
+# Bộ phận thực hiện
+label = tk.Label(root, text="8.3 Đơn vị", font=("Arial", 11))
+label.place(x=740 + a, y=600 + b)
+# Tạo thanh lựa chọn và thiết lập các lựa chọn cho nhân viên đơn vị QLVH
+selected_option_DienLucTH = tk.StringVar()   # Tạo biến lưu trữ lựa chọn được chọn
+cbo_DienLucTH = ttk.Combobox(root, textvariable=selected_option_DienLucTH, values=TenDienLucTH_List, font="Arial")
+cbo_DienLucTH.place(x=820 + a, y=600 + b)
+cbo_DienLucTH.current(0) # Đặt giá trị mặc định lựa chọn đầu tiên
+
+
+# Hàm xử lý sự kiện khi checkbox thay đổi trạng thái
+def on_chb_ChoPhep_change():
+    chophep = False
+    if var_ChoPhep.get():
+        chophep = True
+# Tạo các biến BooleanVar để giữ trạng thái của checkbox
+var_ChoPhep = tk.BooleanVar()
+# Tạo các checkbox
+checkbox1 = tk.Checkbutton(root, text="Cho phép", variable=var_ChoPhep, command=on_chb_ChoPhep_change)
+checkbox1.pack(pady=5)
+
+
+
+# Tạo Button "Cắt điện"
+bt_Open = tk.Button(root, text="Cắt điện",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Open.place(x=200 + a, y=640 + b)
+
+# Tạo Button "Kiểm tra cắt điện"
+bt_Open_Check = tk.Button(root, text="Kiểm tra cắt",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Open_Check.place(x=300 + a, y=640 + b)
+
+# Tạo Button "Nối đất"
+bt_Tiepdia = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Tiepdia.place(x=420 + a, y=640 + b)
+
+# Tạo Button "Kiểm tra nối đất"
+bt_Tiepdia_Check = tk.Button(root, text="Kiểm tra tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Tiepdia_Check.place(x=520 + a, y=640 + b)
+
+# Tạo Button "Gỡ lèo"
+bt_GoLeo = tk.Button(root, text="Gỡ lèo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_GoLeo.place(x=665 + a, y=640 + b)
+
+# Tạo Button "Kiểm tra gỡ lèo"
+bt_Leo_Check = tk.Button(root, text="Kiểm tra lèo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Leo_Check.place(x=760 + a, y=640 + b)
+
+# Tạo Button "Xóa"
+bt_BPATDelete = tk.Button(root, text="Xóa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_BPATDelete.place(x=880 + a, y=640 + b)
+
+
+
+
+
 
 root.mainloop()

@@ -1,16 +1,23 @@
-import Ultility
+import tkinter as tk
 
-DonVi_List = Ultility.ReadfileTxt("NhanVien.txt")
+# Tạo cửa sổ chính
+root = tk.Tk()
+root.title("Ví dụ về Checkbox")
 
-Name_List = []
-Chucvu_List = []
+# Hàm xử lý sự kiện khi checkbox thay đổi trạng thái
+def on_checkbox_change():
+    chophep = False
+    if var1.get():
+        chophep = True
+    print(chophep)
 
-for ele in DonVi_List:
-    Info = ele.split(", ")
-    Name_List.append(Info[0])
-    Chucvu_List.append(Info[1])
+# Tạo các biến BooleanVar để giữ trạng thái của checkbox
+var1 = tk.BooleanVar()
 
-value = "Võ Công Trung"
-for i in range(len(Name_List)):
-    if Name_List[i] == value:
-        print(Chucvu_List[i])
+# Tạo các checkbox
+checkbox1 = tk.Checkbutton(root, text="Tùy chọn 1", variable=var1, command=on_checkbox_change)
+checkbox1.pack(pady=5)
+
+
+# Chạy vòng lặp chính của Tkinter
+root.mainloop()
