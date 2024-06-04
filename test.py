@@ -2,22 +2,22 @@ import tkinter as tk
 
 # Tạo cửa sổ chính
 root = tk.Tk()
-root.title("Ví dụ về Checkbox")
+root.title("Ví dụ về Text Widget với Scrollbar")
 
-# Hàm xử lý sự kiện khi checkbox thay đổi trạng thái
-def on_checkbox_change():
-    chophep = False
-    if var1.get():
-        chophep = True
-    print(chophep)
+# Tạo Text widget
+text_widget = tk.Text(root, wrap='none', height=10, width=50)
+text_widget.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-# Tạo các biến BooleanVar để giữ trạng thái của checkbox
-var1 = tk.BooleanVar()
+# Tạo Scrollbar
+scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=text_widget.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-# Tạo các checkbox
-checkbox1 = tk.Checkbutton(root, text="Tùy chọn 1", variable=var1, command=on_checkbox_change)
-checkbox1.pack(pady=5)
+# Kết nối Scrollbar với Text widget
+text_widget.config(yscrollcommand=scrollbar.set)
 
+# Thêm nội dung vào Text widget
+for i in range(100):
+    text_widget.insert(tk.END, f"Dòng {i + 1}\n")
 
 # Chạy vòng lặp chính của Tkinter
 root.mainloop()

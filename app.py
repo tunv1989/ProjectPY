@@ -333,38 +333,105 @@ def on_chb_ChoPhep_change():
 # Tạo các biến BooleanVar để giữ trạng thái của checkbox
 var_ChoPhep = tk.BooleanVar()
 # Tạo các checkbox
-checkbox1 = tk.Checkbutton(root, text="Cho phép", variable=var_ChoPhep, command=on_chb_ChoPhep_change)
-checkbox1.pack(pady=5)
+checkbox1_ChoPhep = tk.Checkbutton(root, text="Cho phép", variable=var_ChoPhep, command=on_chb_ChoPhep_change)
+checkbox1_ChoPhep.place(x=970 + a, y=540 + b)
+
+
+# Tạo một Label "5. Thiết bị cần cắt"
+label = tk.Label(root, text="5. Thiết bị cần cắt", font=("Arial", 11))
+label.place(x=1060 + a, y=210 + b)
+# Tạo khung (frame) để chứa Text widget và Scrollbar
+frame = tk.Frame(root)
+frame.place(x=1060 + a, y=240 + b)
+# Tạo Text widget
+text_widget_ThietBiCanCat = tk.Text(frame, wrap='none', height=10, width=100, font=("Arial", 11))
+text_widget_ThietBiCanCat.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+# Tạo Scrollbar
+scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ThietBiCanCat.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+# Kết nối Scrollbar với Text widget
+text_widget_ThietBiCanCat.config(yscrollcommand=scrollbar.set)
+# Thêm nội dung vào Text widget
+for i in range(100):
+    text_widget_ThietBiCanCat.insert(tk.END, f"Dòng {i + 1}\n")
+
+
+# TẠO TEXT WIDGET CHỨA NỘI DUNG "VỊ TRÍ CẦN TIẾP ĐỊA"
+label = tk.Label(root, text="5. Vị trí cần tiếp địa", font=("Arial", 11))
+label.place(x=1060 + a, y=420 + b)
+# Tạo khung (frame) để chứa Text widget và Scrollbar
+frame = tk.Frame(root)
+frame.place(x=1060 + a, y=450 + b)
+# Tạo Text widget
+text_widget_ViTriTiepDia = tk.Text(frame, wrap='none', height=10, width=100, font=("Arial", 11))
+text_widget_ViTriTiepDia.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+# Tạo Scrollbar
+scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ViTriTiepDia.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+# Kết nối Scrollbar với Text widget
+text_widget_ViTriTiepDia.config(yscrollcommand=scrollbar.set)
+# Thêm nội dung vào Text widget
+for i in range(100):
+    text_widget_ViTriTiepDia.insert(tk.END, f"Dòng {i + 1}\n")
+
+
+# TẠO TEXT WIDGET CHỨA NỘI DUNG "VỊ TRÍ TREO BIỂN BÁO"
+label = tk.Label(root, text="5. Vị trí treo biển báo", font=("Arial", 11))
+label.place(x=1060 + a, y=630 + b)
+# Tạo khung (frame) để chứa Text widget và Scrollbar
+frame = tk.Frame(root)
+frame.place(x=1060 + a, y=660 + b)
+# Tạo Text widget
+text_widget_ViTriBienBao = tk.Text(frame, wrap='none', height=10, width=100, font=("Arial", 11))
+text_widget_ViTriBienBao.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+# Tạo Scrollbar
+scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ViTriBienBao.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+# Kết nối Scrollbar với Text widget
+text_widget_ViTriBienBao.config(yscrollcommand=scrollbar.set)
+# Thêm nội dung vào Text widget
+for i in range(100):
+    text_widget_ViTriBienBao.insert(tk.END, f"Dòng {i + 1}\n")
+
+
+# TẠO TEXT WIDGET CHỨA NỘI DUNG "NỘI DUNG KHÁC"
+label = tk.Label(root, text="5. Lưu ý", font=("Arial", 11))
+label.place(x=1060 + a, y=840 + b)
+# Tạo khung (frame) để chứa Text widget và Scrollbar
+frame = tk.Frame(root)
+frame.place(x=1060 + a, y=870 + b)
+# Tạo Text widget
+text_widget_LuuY = tk.Text(frame, wrap='none', height=5, width=100, font=("Arial", 11))
+text_widget_LuuY.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+# Tạo Scrollbar
+scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_LuuY.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+# Kết nối Scrollbar với Text widget
+text_widget_LuuY.config(yscrollcommand=scrollbar.set)
+# Thêm nội dung vào Text widget
+for i in range(100):
+    text_widget_LuuY.insert(tk.END, f"Dòng {i + 1}\n")
 
 
 
-# Tạo Button "Cắt điện"
-bt_Open = tk.Button(root, text="Cắt điện",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+# Tạo LIST CHỨA THÔNG TIN CÁC BIỆN PHÁP AN TOÀN
+ThietBiCanCat = []
+ViTriTiepDia = []
+ViTriTreoBienBao = []
+
+
+# Tạo Button "Thiết bị cắt"
+bt_Open = tk.Button(root, text="Thiết bị cắt",padx=20, pady=5, command=Ultility.on_bt_Open_click)
 bt_Open.place(x=200 + a, y=640 + b)
 
 # Tạo Button "Kiểm tra cắt điện"
-bt_Open_Check = tk.Button(root, text="Kiểm tra cắt",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Open_Check.place(x=300 + a, y=640 + b)
+bt_Open_Check = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Open_Check.place(x=330 + a, y=640 + b)
 
-# Tạo Button "Nối đất"
-bt_Tiepdia = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Tiepdia.place(x=420 + a, y=640 + b)
+# Tạo Button "Treo biến báo"
+bt_Tiepdia = tk.Button(root, text="Biển báo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+bt_Tiepdia.place(x=440 + a, y=640 + b)
 
-# Tạo Button "Kiểm tra nối đất"
-bt_Tiepdia_Check = tk.Button(root, text="Kiểm tra tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Tiepdia_Check.place(x=520 + a, y=640 + b)
-
-# Tạo Button "Gỡ lèo"
-bt_GoLeo = tk.Button(root, text="Gỡ lèo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_GoLeo.place(x=665 + a, y=640 + b)
-
-# Tạo Button "Kiểm tra gỡ lèo"
-bt_Leo_Check = tk.Button(root, text="Kiểm tra lèo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Leo_Check.place(x=760 + a, y=640 + b)
-
-# Tạo Button "Xóa"
-bt_BPATDelete = tk.Button(root, text="Xóa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_BPATDelete.place(x=880 + a, y=640 + b)
 
 
 
