@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import difflib
+from tkinter import messagebox
 
 # Hàm đọc dữ liệu từ file txxt lưu lại trong List
 def ReadfileTxt(fileAccount_Path):
@@ -125,8 +126,9 @@ class AutocompleteText(tk.Text):
         if event.keysym in ["Up", "Down", "Return"]:
             return
 
-        typed_text = self.get("1.0", "end-1c")
-        if typed_text:
+        # Kiểm tra xem có văn bản trong đối tượng Text không
+        if not self.compare("end-1c", "==", "1.0"):
+            typed_text = self.get("1.0", "end-1c")
             matches = self.find_matches(typed_text)
             if matches:
                 self.show_listbox(matches)
@@ -204,5 +206,38 @@ class AutocompleteText(tk.Text):
             return "break"  # Ngăn chặn Enter chèn dòng mới vào Text widget
         
 
-def on_bt_Open_click():
-    messagebox.showinfo("Thông báo", "Nút bấm đã được nhấn!")
+def on_bt_ThietBiCat_click(textbox, checkbox_var, combobox1, combobox2, combobox3, data_list):
+    try:
+        text = textbox.get("1.0", tk.END).strip()  # Lấy dữ liệu từ TextBox và loại bỏ khoảng trắng thừa
+        combo1_text = combobox1.get().strip()
+        combo2_text = combobox2.get().strip()
+        combo3_text = combobox3.get().strip()
+
+        if not text:
+            raise ValueError("TextBox không có dữ liệu.")
+        if not combo1_text:
+            raise ValueError("ComboBox 1 không có dữ liệu.")
+        if not combo2_text:
+            raise ValueError("ComboBox 2 không có dữ liệu.")
+        if not combo3_text:
+            raise ValueError("ComboBox 3 không có dữ liệu.")
+
+        if checkbox_var.get():
+            text += ",checkbox=True"
+        else:
+            text += ",checkbox=False"
+
+        # Ghép tất cả dữ liệu lại
+        combined_data = f"{text},{combo1_text},{combo2_text},{combo3_text}"
+        data_list.append(combined_data)  # Lưu dữ liệu vào danh sách
+        print(data_list)
+
+        messagebox.showinfo("Thông báo", "Dữ liệu đã được lưu!")
+        textbox.delete("1.0", tk.END)  # Xóa nội dung TextBox sau khi lưu
+        checkbox_var.set(False)  # Xóa dấu tích của CheckBox
+
+    except ValueError as ve:
+        messagebox.showerror("Lỗi", str(ve))
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi không mong muốn: {str(e)}")
+        print(e)

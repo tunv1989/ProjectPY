@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-import Ultility
 from tkcalendar import DateEntry
+from tkinter import messagebox
+import Ultility
+
 
 root = tk.Tk()
 root.title("CHƯƠNG TRÌNH KỸ THUẬT AN TOÀN")
@@ -325,16 +327,11 @@ cbo_DienLucTH.place(x=820 + a, y=600 + b)
 cbo_DienLucTH.current(0) # Đặt giá trị mặc định lựa chọn đầu tiên
 
 
-# Hàm xử lý sự kiện khi checkbox thay đổi trạng thái
-def on_chb_ChoPhep_change():
-    chophep = False
-    if var_ChoPhep.get():
-        chophep = True
-# Tạo các biến BooleanVar để giữ trạng thái của checkbox
-var_ChoPhep = tk.BooleanVar()
-# Tạo các checkbox
-checkbox1_ChoPhep = tk.Checkbutton(root, text="Cho phép", variable=var_ChoPhep, command=on_chb_ChoPhep_change)
-checkbox1_ChoPhep.place(x=970 + a, y=540 + b)
+
+# Tạo CheckBox
+checkbox_var_BPChoPhep = tk.BooleanVar()  # Biến để theo dõi trạng thái của CheckBox
+checkbox_BPChoPhep = tk.Checkbutton(root, text="Cho phép", variable=checkbox_var_BPChoPhep)
+checkbox_BPChoPhep.place(x=970 + a, y=540 + b)
 
 
 # Tạo một Label "5. Thiết bị cần cắt"
@@ -421,16 +418,18 @@ ViTriTreoBienBao = []
 
 
 # Tạo Button "Thiết bị cắt"
-bt_Open = tk.Button(root, text="Thiết bị cắt",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Open.place(x=200 + a, y=640 + b)
+bt_ThietBiCat = tk.Button(root, text="Thiết bị cắt",padx=20, pady=5, command=lambda: Ultility.on_bt_ThietBiCat_click(txt_NhapBPAT,checkbox_var_BPChoPhep,cbo_DonViTH,cbo_BoPhanTH,cbo_DienLucTH,ThietBiCanCat))
+bt_ThietBiCat.place(x=200 + a, y=640 + b)
 
-# Tạo Button "Kiểm tra cắt điện"
-bt_Open_Check = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Open_Check.place(x=330 + a, y=640 + b)
 
-# Tạo Button "Treo biến báo"
-bt_Tiepdia = tk.Button(root, text="Biển báo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
-bt_Tiepdia.place(x=440 + a, y=640 + b)
+
+# # Tạo Button "Kiểm tra cắt điện"
+# bt_Open_Check = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+# bt_Open_Check.place(x=330 + a, y=640 + b)
+
+# # Tạo Button "Treo biến báo"
+# bt_Tiepdia = tk.Button(root, text="Biển báo",padx=20, pady=5, command=Ultility.on_bt_Open_click)
+# bt_Tiepdia.place(x=440 + a, y=640 + b)
 
 
 
