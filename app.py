@@ -348,9 +348,9 @@ scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ThietBiC
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Kết nối Scrollbar với Text widget
 text_widget_ThietBiCanCat.config(yscrollcommand=scrollbar.set)
-# Thêm nội dung vào Text widget
-for i in range(100):
-    text_widget_ThietBiCanCat.insert(tk.END, f"Dòng {i + 1}\n")
+# # Thêm nội dung vào Text widget
+# for i in range(100):
+#     text_widget_ThietBiCanCat.insert(tk.END, f"Dòng {i + 1}\n")
 
 
 # TẠO TEXT WIDGET CHỨA NỘI DUNG "VỊ TRÍ CẦN TIẾP ĐỊA"
@@ -367,9 +367,9 @@ scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ViTriTie
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Kết nối Scrollbar với Text widget
 text_widget_ViTriTiepDia.config(yscrollcommand=scrollbar.set)
-# Thêm nội dung vào Text widget
-for i in range(100):
-    text_widget_ViTriTiepDia.insert(tk.END, f"Dòng {i + 1}\n")
+# # Thêm nội dung vào Text widget
+# for i in range(100):
+#     text_widget_ViTriTiepDia.insert(tk.END, f"Dòng {i + 1}\n")
 
 
 # TẠO TEXT WIDGET CHỨA NỘI DUNG "VỊ TRÍ TREO BIỂN BÁO"
@@ -386,9 +386,9 @@ scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_ViTriBie
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Kết nối Scrollbar với Text widget
 text_widget_ViTriBienBao.config(yscrollcommand=scrollbar.set)
-# Thêm nội dung vào Text widget
-for i in range(100):
-    text_widget_ViTriBienBao.insert(tk.END, f"Dòng {i + 1}\n")
+# # Thêm nội dung vào Text widget
+# for i in range(100):
+#     text_widget_ViTriBienBao.insert(tk.END, f"Dòng {i + 1}\n")
 
 
 # TẠO TEXT WIDGET CHỨA NỘI DUNG "NỘI DUNG KHÁC"
@@ -405,9 +405,9 @@ scrollbar = tk.Scrollbar(frame, orient=tk.VERTICAL, command=text_widget_LuuY.yvi
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # Kết nối Scrollbar với Text widget
 text_widget_LuuY.config(yscrollcommand=scrollbar.set)
-# Thêm nội dung vào Text widget
-for i in range(100):
-    text_widget_LuuY.insert(tk.END, f"Dòng {i + 1}\n")
+# # Thêm nội dung vào Text widget
+# for i in range(100):
+#     text_widget_LuuY.insert(tk.END, f"Dòng {i + 1}\n")
 
 
 
@@ -415,13 +415,48 @@ for i in range(100):
 ThietBiCanCat = []
 ViTriTiepDia = []
 ViTriTreoBienBao = []
+NoiDungLuuY = []
+
+# Hàm xử lý khi click button "Thiết bị căt"
+def on_bt_ThietBiCat_click():
+    Ultility.save_data_ThietBiCat_to_list(txt_NhapBPAT,checkbox_var_BPChoPhep,cbo_DonViTH,cbo_BoPhanTH,cbo_DienLucTH,ThietBiCanCat)
+    Ultility.display_data_in_text_widgets(ThietBiCanCat, text_widget_ThietBiCanCat)
+
+# Hàm xử lý khi click button "Vị trí đặt tiếp địa"
+def on_bt_ViTriTiepDia_click():
+    Ultility.save_data_ViTriTiepDia_to_list(txt_NhapBPAT,checkbox_var_BPChoPhep,cbo_DonViTH,cbo_BoPhanTH,cbo_DienLucTH,ViTriTiepDia)
+    Ultility.display_data_in_text_widgets(ViTriTiepDia, text_widget_ViTriTiepDia)
+
+# Hàm xử lý khi click button "Vị trí treo biển báo"
+def on_bt_ViTriTreoBienBao_click():
+    Ultility.save_data_ViTriTreoBienBao_to_list(txt_NhapBPAT,checkbox_var_BPChoPhep,cbo_DonViTH,cbo_BoPhanTH,cbo_DienLucTH,ViTriTreoBienBao)
+    Ultility.display_data_in_text_widgets(ViTriTreoBienBao, text_widget_ViTriBienBao)
+
+# Hàm xử lý khi click button "Nội dung cần lưu ý"
+def on_bt_NoiDungLuuY_click():
+    Ultility.save_data_NoiDungLuuY_to_list(txt_NhapBPAT, NoiDungLuuY)
+    Ultility.display_data_in_text_widgets(NoiDungLuuY, text_widget_LuuY)
 
 
 # Tạo Button "Thiết bị cắt"
-bt_ThietBiCat = tk.Button(root, text="Thiết bị cắt",padx=20, pady=5, command=lambda: Ultility.on_bt_ThietBiCat_click(txt_NhapBPAT,checkbox_var_BPChoPhep,cbo_DonViTH,cbo_BoPhanTH,cbo_DienLucTH,ThietBiCanCat))
+bt_ThietBiCat = tk.Button(root, text="Thiết bị cắt",padx=20, pady=5, command=on_bt_ThietBiCat_click)
 bt_ThietBiCat.place(x=200 + a, y=640 + b)
 
+# Tạo Button "Vị trí đặt tiếp địa"
+bt_VitriTiepDia = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=on_bt_ViTriTiepDia_click)
+bt_VitriTiepDia.place(x=320 + a, y=640 + b)
 
+# Tạo Button "Treo biển báo"
+bt_TreoBienBao = tk.Button(root, text="Treo biển báo",padx=20, pady=5, command=on_bt_ViTriTreoBienBao_click)
+bt_TreoBienBao.place(x=430 + a, y=640 + b)
+
+# Tạo Button "Nội dung cần lưu ý"
+bt_NoiDungLuuY = tk.Button(root, text="Lưu ý",padx=20, pady=5, command=on_bt_NoiDungLuuY_click)
+bt_NoiDungLuuY.place(x=570 + a, y=640 + b)
+
+# Tạo Button "Cập nhật"
+bt_CapNhatBPAT = tk.Button(root, text="Cập nhật",padx=20, pady=5, command=lambda:Ultility.update_BPAT_lists(text_widget_ThietBiCanCat,text_widget_ViTriTiepDia,text_widget_ViTriBienBao,text_widget_LuuY,ThietBiCanCat,ViTriTiepDia,ViTriTreoBienBao,NoiDungLuuY))
+bt_CapNhatBPAT.place(x=670 + a, y=640 + b)
 
 # # Tạo Button "Kiểm tra cắt điện"
 # bt_Open_Check = tk.Button(root, text="Tiếp địa",padx=20, pady=5, command=Ultility.on_bt_Open_click)

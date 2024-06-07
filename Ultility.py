@@ -206,7 +206,7 @@ class AutocompleteText(tk.Text):
             return "break"  # Ngăn chặn Enter chèn dòng mới vào Text widget
         
 
-def on_bt_ThietBiCat_click(textbox, checkbox_var, combobox1, combobox2, combobox3, data_list):
+def save_data_ThietBiCat_to_list(textbox, checkbox_var, combobox1, combobox2, combobox3, data_list):
     try:
         text = textbox.get("1.0", tk.END).strip()  # Lấy dữ liệu từ TextBox và loại bỏ khoảng trắng thừa
         combo1_text = combobox1.get().strip()
@@ -241,3 +241,124 @@ def on_bt_ThietBiCat_click(textbox, checkbox_var, combobox1, combobox2, combobox
     except Exception as e:
         messagebox.showerror("Lỗi", f"Đã xảy ra lỗi không mong muốn: {str(e)}")
         print(e)
+
+
+def save_data_ViTriTiepDia_to_list(textbox, checkbox_var, combobox1, combobox2, combobox3, data_list):
+    try:
+        text = textbox.get("1.0", tk.END).strip()  # Lấy dữ liệu từ TextBox và loại bỏ khoảng trắng thừa
+        combo1_text = combobox1.get().strip()
+        combo2_text = combobox2.get().strip()
+        combo3_text = combobox3.get().strip()
+
+        if not text:
+            raise ValueError("TextBox không có dữ liệu.")
+        if not combo1_text:
+            raise ValueError("ComboBox 1 không có dữ liệu.")
+        if not combo2_text:
+            raise ValueError("ComboBox 2 không có dữ liệu.")
+        if not combo3_text:
+            raise ValueError("ComboBox 3 không có dữ liệu.")
+
+        if checkbox_var.get():
+            text += ",checkbox=True"
+        else:
+            text += ",checkbox=False"
+
+        # Ghép tất cả dữ liệu lại
+        combined_data = f"{text},{combo1_text},{combo2_text},{combo3_text}"
+        data_list.append(combined_data)  # Lưu dữ liệu vào danh sách
+        print(data_list)
+
+        messagebox.showinfo("Thông báo", "Dữ liệu đã được lưu!")
+        textbox.delete("1.0", tk.END)  # Xóa nội dung TextBox sau khi lưu
+        checkbox_var.set(False)  # Xóa dấu tích của CheckBox
+
+    except ValueError as ve:
+        messagebox.showerror("Lỗi", str(ve))
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi không mong muốn: {str(e)}")
+        print(e)
+
+
+
+def save_data_ViTriTreoBienBao_to_list(textbox, checkbox_var, combobox1, combobox2, combobox3, data_list):
+    try:
+        text = textbox.get("1.0", tk.END).strip()  # Lấy dữ liệu từ TextBox và loại bỏ khoảng trắng thừa
+        combo1_text = combobox1.get().strip()
+        combo2_text = combobox2.get().strip()
+        combo3_text = combobox3.get().strip()
+
+        if not text:
+            raise ValueError("TextBox không có dữ liệu.")
+        if not combo1_text:
+            raise ValueError("ComboBox 1 không có dữ liệu.")
+        if not combo2_text:
+            raise ValueError("ComboBox 2 không có dữ liệu.")
+        if not combo3_text:
+            raise ValueError("ComboBox 3 không có dữ liệu.")
+
+        if checkbox_var.get():
+            text += ",checkbox=True"
+        else:
+            text += ",checkbox=False"
+
+        # Ghép tất cả dữ liệu lại
+        combined_data = f"{text},{combo1_text},{combo2_text},{combo3_text}"
+        data_list.append(combined_data)  # Lưu dữ liệu vào danh sách
+        print(data_list)
+
+        messagebox.showinfo("Thông báo", "Dữ liệu đã được lưu!")
+        textbox.delete("1.0", tk.END)  # Xóa nội dung TextBox sau khi lưu
+        checkbox_var.set(False)  # Xóa dấu tích của CheckBox
+
+    except ValueError as ve:
+        messagebox.showerror("Lỗi", str(ve))
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi không mong muốn: {str(e)}")
+        print(e)
+
+
+def save_data_NoiDungLuuY_to_list(textbox, data_list):
+    try:
+        text = textbox.get("1.0", tk.END).strip()  # Lấy dữ liệu từ TextBox và loại bỏ khoảng trắng thừa
+        
+
+        if not text:
+            raise ValueError("TextBox không có dữ liệu.")
+        
+
+        
+        # Ghép tất cả dữ liệu lại
+        data_list.append(text)  # Lưu dữ liệu vào danh sách
+        print(data_list)
+
+        messagebox.showinfo("Thông báo", "Dữ liệu đã được lưu!")
+        textbox.delete("1.0", tk.END)  # Xóa nội dung TextBox sau khi lưu
+
+    except ValueError as ve:
+        messagebox.showerror("Lỗi", str(ve))
+    except Exception as e:
+        messagebox.showerror("Lỗi", f"Đã xảy ra lỗi không mong muốn: {str(e)}")
+        print(e)
+
+
+def display_data_in_text_widgets(list1, text1):
+    text1.delete("1.0", tk.END)
+    
+    for item in list1:
+        text1.insert(tk.END, "- " + str(item) + "\n")
+
+
+def update_BPAT_lists(text1, text2, text3, text4, list1, list2, list3, list4):
+    # Cập nhật lại danh sách từ các Text widgets
+    # Cập nhật lại danh sách từ các Text widgets, loại bỏ các phần tử trắng và ký tự "-" ở đầu mỗi dòng
+    list1[:] = [item.lstrip('-').strip() for item in text1.get("1.0", tk.END).strip().split("\n") if item.strip()]
+    list2[:] = [item.lstrip('-').strip() for item in text2.get("1.0", tk.END).strip().split("\n") if item.strip()]
+    list3[:] = [item.lstrip('-').strip() for item in text3.get("1.0", tk.END).strip().split("\n") if item.strip()]
+    list4[:] = [item.lstrip('-').strip() for item in text4.get("1.0", tk.END).strip().split("\n") if item.strip()]
+
+    print("Updated lists:")
+    print("List 1:", list1)
+    print("List 2:", list2)
+    print("List 3:", list3)
+    print("List 4:", list4)
